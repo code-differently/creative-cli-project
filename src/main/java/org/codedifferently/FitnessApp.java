@@ -1,8 +1,7 @@
 package org.codedifferently;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class FitnessApp {
     private static ArrayList<Person> users = new ArrayList<>();
@@ -14,7 +13,7 @@ public class FitnessApp {
 
         do {
             // Displays the main menu options to the user.
-            System.out.println("\n=== Barber Shop Management Menu ===");
+            System.out.println("\n=== LiftLogic ===");
             System.out.println("1) Signup");
             System.out.println("2) Login");
             System.out.println("0) Quit");
@@ -28,9 +27,6 @@ public class FitnessApp {
             }
             sc.nextLine();
 
-            String name;
-            String phoneNumber;
-
             switch (input) {
                 // Handles the creation and storage of a new customer.
                 case 1:
@@ -40,7 +36,7 @@ public class FitnessApp {
                 case 2:
                     Person toLogin = validateLogin(sc);
                     if (toLogin != null) {
-                        login(toLogin);
+                        login(toLogin, sc);
                     } else {
                         System.out.println("Invalid username or password. Try again.");
                     }
@@ -64,11 +60,156 @@ public class FitnessApp {
         String password = sc.nextLine();
         Person user = new Person(name, email, password);
         users.add(user);
-        FitnessApp.login(user);
+        FitnessApp.login(user, sc);
     }
 
-    public static void login(Person person) {
+    public static void login(Person person, Scanner sc) {
+        System.out.println("Welcome, " + person.getName() + "!");
+        int input;
 
+        do {
+            // Displays the main menu options to the user.
+            System.out.println("\n=== LiftLogic ===");
+            System.out.println("1) Log a workout");
+            System.out.println("2) Display Leaderboard");
+            System.out.println("3) Settings");
+            System.out.println("0) Logout");
+            System.out.print("Choose: ");
+
+            // Validates numeric input before processing.
+            if (sc.hasNextInt()) {
+                input = sc.nextInt();
+            } else {
+                input = -1;
+            }
+            sc.nextLine();
+
+            switch (input) {
+                // Handles the creation and storage of a new customer.
+                case 1:
+                    Workout workout = createWorkout(sc);
+                    ArrayList<Workout> workouts = person.getWorkouts();
+                    workouts.add(workout);
+                    person.setWorkouts(workouts);
+                    person.setActiveWorkout(workout);
+                    break;
+                // Displays the full list of registered customers.
+                case 2:
+                    break;
+                // Exits the system and prints a journal of completed appointments.
+                case 3:
+                    displaySettings(person, sc);
+                    break;
+                case 0:
+                    System.out.println("\nLogging out...");
+                    break;
+                // Handles invalid menu selections.
+                default:
+                    System.out.println("\nPlease select a valid option.");
+            }
+            // Stopping condition. Program will exit when the user inputs 0.
+        } while (input != 0);
+    }
+
+    public static void displaySettings(Person person, Scanner sc) {
+        int input;
+        do {
+            System.out.println("\n=== Settings ===");
+            System.out.println("1) Change Name");
+            System.out.println("2) Reset Password");
+            System.out.println("0) Exit");
+            System.out.print("Choose: ");
+
+            // Validates numeric input before processing.
+            if (sc.hasNextInt()) {
+                input = sc.nextInt();
+            } else {
+                input = -1;
+            }
+            sc.nextLine();
+
+            switch (input) {
+                // Handles the creation and storage of a new customer.
+                case 1:
+                    String name = validateName(sc);
+                    person.setName(name);
+                    break;
+                // Displays the full list of registered customers.
+                case 2:
+                    System.out.print("Enter your current password: ");
+                    String password = sc.nextLine();
+                    if (person.getPassword().equals(password)) {
+                        System.out.print("Enter your new password: ");
+                        String pass1 = sc.nextLine();
+                        System.out.print("Enter your new password again: ");
+                        String pass2 = sc.nextLine();
+
+                        if (pass1.equals(pass2)) {
+                            person.setPassword(password);
+                        } else {
+                            System.out.println("Passwords did not match.");
+                        }
+                    } else {
+                        System.out.println("Invalid password.");
+                    }
+                case 0:
+                    System.out.println("\nExiting settings...");
+                    break;
+                // Handles invalid menu selections.
+                default:
+                    System.out.println("\nPlease select a valid option.");
+            }
+            // Stopping condition. Program will exit when the user inputs 0.
+        } while (input != 0);
+    }
+
+    public static Workout createWorkout(Scanner scanner) {
+        System.out.println("Create New Workout");
+
+        System.out.print("Enter workout duration: ");
+        String duration = scanner.nextLine();
+
+        Date date = new Date();
+
+        Workout workout = new Workout(duration, date, new ArrayList<>());
+
+        // Ask how many exercises the workout contains
+        System.out.print("How many exercises are in this workout? ");
+        int exerciseCount = scanner.nextInt();
+        scanner.nextLine(); // clear newline
+
+        for (int i = 0; i < exerciseCount; i++) {
+
+            System.out.println("\nExercise " + (i + 1));
+
+            // Ask for exercise name
+            System.out.print("Enter exercise name: ");
+            String name = scanner.nextLine();
+
+            // Ask for calories burned
+            System.out.print("Enter calories burned: ");
+            int calories = scanner.nextInt();
+            scanner.nextLine(); // clear newline
+
+            // Display enum exercise types
+            System.out.println("Select Exercise Type:");
+
+            ExerciseType[] types = ExerciseType.values();
+
+            for (int j = 0; j < types.length; j++) {
+                System.out.println((j + 1) + ". " + types[j]);
+            }
+
+            int typeChoice = scanner.nextInt();
+            scanner.nextLine(); // clear newline
+
+            ExerciseType selectedType = types[typeChoice - 1];
+
+            Exercise exercise = new Exercise(selectedType, name, calories);
+
+            workout.addExercise(exercise);
+        }
+        return workout;
     }
 
     // Searches for a customer using their phone number and returns the match if found.

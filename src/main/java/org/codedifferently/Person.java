@@ -5,6 +5,7 @@ public class Person {
     private String name;
     private String email;
     private String password;
+    private Workout activeWorkout = null;
     private ArrayList<Workout> workouts;
 
     public Person(String name, String email, String password) {
@@ -44,5 +45,13 @@ public class Person {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Workout getActiveWorkout() {
+        return activeWorkout;
+    }
+
+    public void setActiveWorkout(Workout activeWorkout) {
+        this.activeWorkout = activeWorkout;
     }
 }
