@@ -4,11 +4,13 @@ import java.util.ArrayList;
 public class Person {
     private String name;
     private String email;
+    private String password;
     private ArrayList<Workout> workouts;
 
-    public Person(String name, String email) {
+    public Person(String name, String email, String password) {
         this.name = name;
         this.email = email;
+        this.password = password;
         this.workouts = new ArrayList<>();
     }
 
@@ -34,5 +36,13 @@ public class Person {
 
     public void setWorkouts(ArrayList<Workout> workouts) {
         this.workouts = workouts;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

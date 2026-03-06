@@ -51,5 +51,4 @@ public class Workout {
     public void displayWorkoutInfo(){
 
     }
-
 }
