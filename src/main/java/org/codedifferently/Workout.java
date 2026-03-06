@@ -11,6 +11,7 @@ public class Workout {
     public Workout(String duration, Date date) {
         this.duration = duration;
         this.date = date;
+        exercises = new ArrayList<>();
     }
 
     public String getDuration() {

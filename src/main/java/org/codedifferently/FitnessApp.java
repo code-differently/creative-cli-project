@@ -172,7 +172,7 @@ public class FitnessApp {
                         String pass2 = sc.nextLine();
 
                         if (pass1.equals(pass2)) {
-                            person.setPassword(password);
+                            person.setPassword(pass1);
                         } else {
                             System.out.println("Passwords did not match.");
                         }
@@ -320,6 +320,16 @@ public class FitnessApp {
         return maxPerson;
     }
 
+    public static int countExercises(Person person) {
+        int count = 0;
+
+        for (Workout workout : person.getWorkouts()) {
+            count += workout.getExercises().size();
+        }
+
+        return count;
+    }
+
     public static ArrayList<Person> buildLeaderboard(Map<Person, Integer> map) {
         ArrayList<Person> leaderboard = new ArrayList<>();
 
@@ -330,16 +340,6 @@ public class FitnessApp {
         }
 
         return leaderboard;
-    }
-
-    public static int countExercises(Person person) {
-        int count = 0;
-
-        for (Workout workout : person.getWorkouts()) {
-            count += workout.getExercises().size();
-        }
-
-        return count;
     }
 
     public static void displayLeaderboard(ArrayList<Person> people) {
@@ -358,6 +358,7 @@ public class FitnessApp {
         int rank = 1;
 
         for (Person person : leaderboard) {
+            System.out.println("****Leaderboard****");
             System.out.println(rank + ". " + person.getName() +
                     " completed " + map.get(person) + " exercises");
             rank++;
