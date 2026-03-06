@@ -34,4 +34,13 @@ public class Exercise {
     public void setCaloriesBurned(int caloriesBurned) {
         this.caloriesBurned = caloriesBurned;
     }
+
+    public void displayExerciseInfo() {
+        System.out.println("Exercise Information");
+        System.out.println("--------------------");
+        System.out.println("Name: " + name);
+        System.out.println("Type: " + type);
+        System.out.println("Calories Burned: " + caloriesBurned);
+        System.out.println();
+    }
 }

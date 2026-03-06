@@ -49,7 +49,15 @@ public class Workout {
     }
 
     public void displayWorkoutInfo(){
+            System.out.println("******************************");
+            System.out.println("\nWorkout Date " + date);
+            System.out.println("Duration: " + duration);
+            System.out.println("Status: " + completed);
 
+            for (Exercise exercise : exercises) {
+                System.out.println(exercise);
+        }
+            System.out.println("******************************");
     }
 
 }
