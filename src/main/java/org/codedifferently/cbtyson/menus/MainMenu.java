@@ -16,6 +16,10 @@ public class MainMenu {
         //generate default students
         generateDefaultStudents();
 
+        //Menus
+        AddGroupMenu addGroupMenu = new AddGroupMenu();
+        AddStudentMenu addStudentMenu = new AddStudentMenu();
+
         //main loop for program
         boolean inMainMenu = true;
         while(inMainMenu) {
@@ -36,8 +40,10 @@ public class MainMenu {
 
             switch(inputCode) {
                 case 1:
+                    addStudentMenu.promptAddStudentMenu();
                     break;
                 case 2:
+                    addGroupMenu.promptGroupMenu();
                     break;
                 case 3:
                     ViewMenu viewMenu = new ViewMenu();
@@ -58,10 +64,10 @@ public class MainMenu {
     //generates students, and adds them to a group. then adds them into the static groupList field.
     void generateDefaultStudents() {
         //Make new students
-        Student glenn = new Student("Glenn", "Tyson", "mrtyson@gmail.com", "31d13d31", 29, 3.6);
-        Student chris = new Student("Chris", "Bennett", "cbswag@gmail.com", "1920vfvw", 30, 2.0);
-        Student alex = new Student("Alex", "Trunzo", "vanyllagodzylla@gmail.com", "120-1f1f", 22, 4.0);
-        Student bobby = new Student("Bobby", "Money", "bigmoney@gmail.com", "19911-wfwefwe", 25, 3.56);
+        Student glenn = new Student("Glenn", "Tyson", "mrtyson@gmail.com", "31d13d31", 29, "3.6");
+        Student chris = new Student("Chris", "Bennett", "cbswag@gmail.com", "1920vfvw", 30, "2.0");
+        Student alex = new Student("Alex", "Trunzo", "vanyllagodzylla@gmail.com", "120-1f1f", 22, "4.0");
+        Student bobby = new Student("Bobby", "Money", "bigmoney@gmail.com", "19911-wfwefwe", 25, "3.56");
 
         //List of students added to arrayList
         ArrayList<Student> students1 = new ArrayList<>();

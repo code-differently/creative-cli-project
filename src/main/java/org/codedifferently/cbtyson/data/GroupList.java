@@ -16,18 +16,35 @@ public class GroupList {
     }
 
     public static void AddStudentToGroup(String groupID,Student student) {
+
+        boolean groupFound = false;
+
         for (Group group : groups) {
             if(group.getGroupID().equals(groupID)) {
+                groupFound = true;
                 group.getStudentList().add(student);
             }
         }
+
+        if(!groupFound) {
+            System.out.println("Group not found!");
+        }
+
     }
 
     public static void RemoveStudentFromGroup(String groupID, Student student) {
+
+        boolean groupFound = false;
+
         for (Group group : groups) {
             if(group.getGroupID().equals(groupID)) {
+                groupFound = true;
                 group.getStudentList().remove(student);
             }
+        }
+
+        if(!groupFound) {
+            System.out.println("Group not found!");
         }
     }
 }

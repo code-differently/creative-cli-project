@@ -7,10 +7,10 @@ public class Student {
     public String email;
     public String studentID;
     public int age;
-    public double gpa;
+    public String gpa;
 
 
-    public Student(String firstName, String lastName, String email, String studentID, int age, double gpa) {
+    public Student(String firstName, String lastName, String email, String studentID, int age, String gpa) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -35,7 +35,7 @@ public class Student {
         return email;
     }
 
-    public double getGpa() {
+    public String getGpa() {
         return gpa;
     }
 
