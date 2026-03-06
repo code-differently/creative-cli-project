@@ -1,4 +1,4 @@
-# creative-cli-project
+# Creative-Cli-Project
 ## The Mission
 
 You and your partner are going to **build a Java command-line application** based on a real-world system.
