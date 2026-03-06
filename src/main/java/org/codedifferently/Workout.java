@@ -8,10 +8,9 @@ public class Workout {
     private Date date;
     private ArrayList<Exercise> exercises;
 
-    public Workout(String duration, Date date, ArrayList<Exercise> exercises) {
+    public Workout(String duration, Date date) {
         this.duration = duration;
         this.date = date;
-        this.exercises = new ArrayList<>();
     }
 
     public String getDuration() {
@@ -49,4 +48,5 @@ public class Workout {
         }
             System.out.println("******************************");
     }
+
 }
