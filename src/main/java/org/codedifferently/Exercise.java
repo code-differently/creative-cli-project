@@ -1,21 +1,21 @@
 package org.codedifferently;
 
 public class Exercise {
-    private WorkoutType type;
+    private ExerciseType type;
     private String name;
     private int caloriesBurned;
 
-    public Exercise(WorkoutType type, String name, int caloriesBurned) {
+    public Exercise(ExerciseType type, String name, int caloriesBurned) {
         this.type = type;
         this.name = name;
         this.caloriesBurned = caloriesBurned;
     }
 
-    public WorkoutType getType() {
+    public ExerciseType getType() {
         return type;
     }
 
-    public void setType(WorkoutType type) {
+    public void setType(ExerciseType type) {
         this.type = type;
     }
 
