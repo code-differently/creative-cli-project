@@ -5,7 +5,7 @@ import java.util.List;
 
 public class GroupList {
 
-    static ArrayList<Group> groups;
+    static ArrayList<Group> groups = new ArrayList<>();
 
     public static List<Group> GetGroups() {
         return groups;
