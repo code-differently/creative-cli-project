@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class SiteSystem {
 
     // Constructor runs the application session loop for this project.
-    public SiteSystem(){
+    public SiteSystem() {
         // Used to generate 3-digit employee IDs for new hires.
         Random random = new Random();
 
@@ -99,13 +99,13 @@ public class SiteSystem {
                             System.out.println("Enter employee ID:");
                             int idcheck = scanner.nextInt();
                             boolean updated = false;
-                            for (Person index: people){
-                                if (idcheck== index.getId() && index instanceof Employee){
+                            for (Person index : people) {
+                                if (idcheck == index.getId() && index instanceof Employee) {
                                     Employee emp = (Employee) index;
                                     System.out.println("Enter hours to add:");
                                     double houradd = scanner.nextDouble();
 
-                                    emp.setHoursWorked(emp.getHoursworked()+houradd);
+                                    emp.setHoursWorked(emp.getHoursworked() + houradd);
                                     System.out.println(emp.getFirstname() + " " + "now has" + " " + emp.getHoursworked() + " " + "hours.");
                                     updated = true;
                                     break;
