@@ -70,6 +70,7 @@ public class FitnessApp {
         System.out.print("Enter a password: ");
         String password = sc.nextLine();
 
+        // Creates a new Person object and stores it in the users list
         Person user = new Person(name, email, password);
         users.add(user);
 
@@ -88,6 +89,7 @@ public class FitnessApp {
             System.out.println("1) Log a workout");
             System.out.println("2) Display Leaderboard");
             System.out.println("3) Settings");
+            System.out.println("4) Display all workouts");
             System.out.println("0) Logout");
             System.out.print("Choose: ");
 
@@ -104,19 +106,29 @@ public class FitnessApp {
                 // Creates and stores a workout for the user
                 case 1:
                     Workout workout = createWorkout(sc);
+
+                    // Adds workout to the user's workout list
                     ArrayList<Workout> workouts = person.getWorkouts();
                     workouts.add(workout);
                     person.setWorkouts(workouts);
+
+                    // Marks this workout as the user's active workout
                     person.setActiveWorkout(workout);
                     break;
 
-                // Displays leaderboard (feature placeholder)
+                // Displays leaderboard rankings
                 case 2:
                     displayLeaderboard(getUsers());
                     break;
-                // Opens user settings
+
+                // Opens user settings menu
                 case 3:
                     displaySettings(person, sc);
+                    break;
+
+               // Displays all workouts the user has done
+                case 4:
+                    displayAllWorkouts(person);
                     break;
 
                 // Logs the user out
@@ -165,22 +177,28 @@ public class FitnessApp {
                     System.out.print("Enter your current password: ");
                     String password = sc.nextLine();
 
+                    // Confirms the current password matches
                     if (person.getPassword().equals(password)) {
+
+                        // Prompts for new password twice
                         System.out.print("Enter your new password: ");
                         String pass1 = sc.nextLine();
                         System.out.print("Enter your new password again: ");
                         String pass2 = sc.nextLine();
 
+                        // Ensures both new passwords match
                         if (pass1.equals(pass2)) {
                             person.setPassword(pass1);
                         } else {
                             System.out.println("Passwords did not match.");
                         }
+
                     } else {
                         System.out.println("Invalid password.");
                     }
                     break;
-                    // Exits settings menu
+
+                // Exits settings menu
                 case 0:
                     System.out.println("\nExiting settings...");
                     break;
@@ -193,7 +211,7 @@ public class FitnessApp {
         } while (input != 0);
     }
 
-    // Creates a workout and collects exercise information
+    // Creates a workout and collects exercise information from the user
     public static Workout createWorkout(Scanner scanner) {
 
         System.out.println("Create New Workout");
@@ -202,17 +220,18 @@ public class FitnessApp {
         System.out.print("Enter workout duration: ");
         String duration = scanner.nextLine();
 
-        // Records workout date
+        // Records workout date automatically
         Date date = new Date();
 
         // Initializes workout object
-        Workout workout = new Workout(duration, date);
+        Workout workout = new Workout(duration);
 
         // Asks how many exercises to log
         System.out.print("How many exercises are in this workout? ");
         int exerciseCount = scanner.nextInt();
         scanner.nextLine();
 
+        // Loops through and collects each exercise
         for (int i = 0; i < exerciseCount; i++) {
 
             // Collects exercise name
@@ -249,17 +268,21 @@ public class FitnessApp {
     // Validates login credentials and returns the matching user
     public static Person validateLogin(Scanner sc) {
 
+        // Requests email from user
         String email = validateEmail(sc);
 
+        // Requests password from user
         System.out.print("Enter your password: ");
         String password = sc.nextLine();
 
+        // Searches through registered users
         for (Person user : FitnessApp.getUsers()) {
             if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
                 return user;
             }
         }
 
+        // Returns null if login fails
         return null;
     }
 
@@ -289,11 +312,13 @@ public class FitnessApp {
             String email = sc.nextLine();
 
             try {
+                // Validates email pattern
                 if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")) {
                     throw new IllegalArgumentException();
                 } else {
                     return email;
                 }
+
             } catch (IllegalArgumentException e) {
                 System.out.println("\nInvalid email address. Try again.\n");
             }
@@ -305,7 +330,20 @@ public class FitnessApp {
         return users;
     }
 
+    // Displays all the workouts the user has done
+    public static void displayAllWorkouts(Person person){
+        // If there are no workouts completed display a message
+        if (person.getWorkouts().size() ==0){
+            System.out.println("No workouts have been completed");
+        }
 
+        // Cycles through the list of workouts to display the data of each workout
+        for (Workout workout: person.getWorkouts()){
+            workout.displayWorkoutInfo();
+        }
+    }
+
+    // Finds the person with the highest value in the map
     public static Person getMaxKey(Map<Person, Integer> map) {
         int maxExercises = -1;
         Person maxPerson = null;
@@ -320,6 +358,7 @@ public class FitnessApp {
         return maxPerson;
     }
 
+    // Counts total number of exercises completed by a person
     public static int countExercises(Person person) {
         int count = 0;
 
@@ -330,9 +369,27 @@ public class FitnessApp {
         return count;
     }
 
+    // Counts total calories burned by a person across all workouts
+    public static int countCaloriesBurned(Person person) {
+        int count = 0;
+
+        // Retrieves the user's workouts
+        ArrayList<Workout> workouts = person.getWorkouts();
+
+        for (Workout workout : workouts) {
+            for (Exercise exercise : workout.getExercises()) {
+                count += exercise.getCaloriesBurned();
+            }
+        }
+
+        return count;
+    }
+
+    // Builds a sorted leaderboard from a map of people and scores
     public static ArrayList<Person> buildLeaderboard(Map<Person, Integer> map) {
         ArrayList<Person> leaderboard = new ArrayList<>();
 
+        // Repeatedly finds the max value and removes it
         while (!map.isEmpty()) {
             Person maxPerson = getMaxKey(map);
             leaderboard.add(maxPerson);
@@ -342,8 +399,10 @@ public class FitnessApp {
         return leaderboard;
     }
 
-    public static void displayLeaderboard(ArrayList<Person> people) {
+    // Displays leaderboard ranked by total number of exercises
+    public static void rankByTotalExercises(ArrayList<Person> people){
 
+        // Stores people and their exercise totals
         Map<Person, Integer> map = new LinkedHashMap<>();
 
         for (Person person : people) {
@@ -351,17 +410,62 @@ public class FitnessApp {
             map.put(person, totalExercises);
         }
 
+        // Copies map so original data is preserved
         Map<Person, Integer> copy = new LinkedHashMap<>(map);
 
+        // Builds sorted leaderboard
         ArrayList<Person> leaderboard = buildLeaderboard(copy);
 
         int rank = 1;
 
+        System.out.println("\n****Leaderboard****");
+        System.out.println("Ranked by total amount of exercises: ");
+
+        // Displays ranked results
         for (Person person : leaderboard) {
-            System.out.println("****Leaderboard****");
             System.out.println(rank + ". " + person.getName() +
                     " completed " + map.get(person) + " exercises");
             rank++;
         }
+    }
+
+    // Displays leaderboard ranked by total calories burned
+    public static void rankByTotalCaloriesBurned(ArrayList<Person> people){
+
+        // Stores people and their calorie totals
+        Map<Person, Integer> map = new LinkedHashMap<>();
+
+        for (Person person : people) {
+            int totalCalories = countCaloriesBurned(person);
+            map.put(person, totalCalories);
+        }
+
+        // Copies map so original data remains unchanged
+        Map<Person, Integer> copy = new LinkedHashMap<>(map);
+
+        // Builds sorted leaderboard
+        ArrayList<Person> leaderboard = buildLeaderboard(copy);
+
+        int rank = 1;
+
+        System.out.println("\n****Leaderboard****");
+        System.out.println("Ranked by total amount of calories burned: ");
+
+        // Displays ranked results
+        for (Person person : leaderboard) {
+            System.out.println(rank + ". " + person.getName() +
+                    " burned " + map.get(person) + " calories");
+            rank++;
+        }
+    }
+
+    // Displays both leaderboard rankings
+    public static void displayLeaderboard(ArrayList<Person> people) {
+
+        // Shows ranking by total exercises
+        rankByTotalExercises(people);
+
+        // Shows ranking by calories burned
+        rankByTotalCaloriesBurned(people);
     }
 }
