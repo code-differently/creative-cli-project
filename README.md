@@ -1,138 +1,84 @@
-# Creative-Cli-Project
-## The Mission
+# Employee Management System
 
-You and your partner are going to **build a Java command-line application** based on a real-world system.
+A Java console application for basic employee tracking. The program allows users to log in by ID, review employee hours, update hours, add new hires, and view all employee summaries.
 
-There is **no step-by-step instruction manual**.
+## Sprint 1 - The Plan
 
-Instead, you will take everything you’ve learned so far and **design your own solution**.
+### Problem the Program Solves
+Small teams often need a simple way to track employee records and work hours without a full database or web app. This project solves that by providing a lightweight command-line system for employee management tasks.
 
-Think of this as your opportunity to prove:
+### Planned Features
+- ID-based login flow
+- Menu-driven actions for managers/employees
+- View an employee's current hours
+- Update employee hours
+- Add a new employee with a random 3-digit ID
+- Print a list of all employees
 
-* You can design software
-* You can structure Java programs
-* You can collaborate with a partner
-* You can explain your technical decisions
+### Planned Classes
+- `Person` (abstract base class for shared identity/contact fields)
+- `Employee` (extends `Person`, stores hours worked)
+- `siteManager` (extends `Person`, tracks employees on site)
+- `SiteSystem` (main workflow/menu logic)
+- `Main` (application entry point)
 
-Your goal is to build something that **works, is organized, and shows your understanding of Java.**
+### Work Division Between Partners
+- Partner A: Domain model and inheritance structure (`Person`, `Employee`, `siteManager`)
+- Partner B: Console flow and feature implementation (`SiteSystem`, menu options, input handling)
+- Shared: Testing flows, bug fixes, and output formatting
 
----
+## Sprint 2 - The Build
 
-# Theme: EveryDay Appliication
+### What Was Implemented
+- Created an OOP structure with inheritance (`Person` -> `Employee` / `siteManager`)
+- Built a menu-based system in `SiteSystem`
+- Implemented:
+  - Option 2: lookup employee and display hours
+  - Option 3: add hours to existing employee total
+  - Option 4: add new hire and generate random ID (`100-999`)
+  - Option 5: display all employee summaries
+- Added validation messaging such as "Employee ID not found"
 
-Your project must represent a **system people use in real life** 
+### What Changed from the Original Plan
+- Employee lists needed synchronization between manager tracking and the main `people` list
+- Print logic was adjusted to use summaries instead of object references
+- Input handling was refined to avoid scanner newline issues
 
-You are encouraged to **get creative and build something interesting.**
+### Challenges Encountered
+- New hires were not appearing in all views because they were added to only one list
+- Scanner input sequencing (`nextInt()` and `nextLine()`) caused skipped fields
+- Incorrect method usage when updating hours (getter vs setter)
 
----
+### How Challenges Were Solved
+- Added new hires to both relevant collections where needed
+- Used proper newline consumption before string input
+- Switched to `setHoursWorked(getHoursworked() + hourAdd)` pattern
+- Added clearer loop logic and not-found messages
 
-# Team Structure
+## Sprint 3 - The Reflection
 
-You will work **in pairs**.
+### What Works Well
+- Clear class separation and inheritance-based design
+- Menu options cover core employee management tasks
+- Hours update and employee lookup workflows function as expected
+- Program compiles and runs as a clean console app
 
-Because everyone recently earned their **Certified Scrum Master certification**, you will organize your work into **three sprint phases**.
+### What to Improve with More Time
+- Replace in-memory lists with persistent storage (file or database)
+- Add stronger input validation and exception handling
+- Implement role-based permissions (manager vs employee actions)
+- Refactor naming/style (`siteManager` -> `SiteManager`) and add unit tests
 
-Your README must document what happened in each sprint.
+### Java Concepts Used Most
+- Classes and objects
+- Inheritance and abstract classes
+- Method overriding
+- ArrayLists and loops
+- Type checking/casting (`instanceof`)
+- User input with `Scanner`
 
----
-
-# Sprint Documentation
-
-Your README must include these three sections.
-
----
-
-## Sprint 1 — The Plan
-
-Before writing code, explain:
-
-* What problem your program solves
-* What features you want to build
-* What classes you expect to create
-* How you divided the work between partners
-
-Think of this as your **project blueprint**.
-
----
-
-## Sprint 2 — The Build
-
-Explain:
-
-* What you actually implemented
-* What changed from your original plan
-* Challenges you encountered
-* How you solved them
-
-Real software projects **never go exactly as planned** — document your journey.
-
----
-
-## Sprint 3 — The Reflection
-
-Explain:
-
-* What works well in your program
-* What you would improve with more time
-* What Java concepts you used the most
-* What you learned from the experience
-
----
-
-# Code Explanation Requirement
-
-Your code must contain **comments explaining your technical decisions**.
-
-The goal is to show **why you used certain Java concepts**, not just that the code runs.
-
-Explain things like:
-
-* Why you created certain classes
-* Why you used specific collections
-* Why you used loops or conditionals
-* Why methods are structured a certain way
-
-Example:
-
-```java
-// Using ArrayList because the number of tasks can grow dynamically
-ArrayList<String> tasks = new ArrayList<>();
-
-// Loop used to display all tasks stored in the system
-for (String task : tasks) {
-    System.out.println(task);
-}
-```
-
-Your comments should help someone understand **how your program works and why it was designed that way**.
-
----
-
-# Technical Expectations
-
-Your project should demonstrate the core Java skills we have practiced:
-
-* Classes and Objects
-* Constructors
-* Methods
-* Encapsulation (getters/setters)
-* Loops
-* Conditional statements
-* Collections (`ArrayList`, `HashMap`, etc.)
-* User input using `Scanner`
-* Clean program organization
-
-Your application must run **in the command line**.
-
----
-
-# Final Goal
-
-This project is about demonstrating that you can:
-
-* Design software without step-by-step instructions
-* Apply Java concepts to a real problem
-* Work effectively with a partner
-* Explain your code and decisions
-
-Build something that helps reinfornce knowledge for the final java exa!
+### What Was Learned
+- Planning helps, but implementation details always evolve
+- Data consistency between collections matters in real features
+- Input handling in console apps requires careful sequencing
+- OOP design makes code easier to extend as requirements grow
