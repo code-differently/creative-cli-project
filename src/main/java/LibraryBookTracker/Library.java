@@ -4,79 +4,149 @@ import java.util.ArrayList;
 
 public class Library {
 
-    // Using ArrayList because the number of books can grow over time
+    // Using ArrayList because the number of books can grow as users add more
     private ArrayList<Book> books;
 
-    // Constructor creates an empty list when the library starts
+    // This keeps track of the next ID to assign to a new book
+    private int nextBookId;
+
+    // Constructor creates the book list and starts IDs at 1
     public Library() {
         books = new ArrayList<>();
+        nextBookId = 1;
     }
 
-    // Adds a new book object into the library
-    public void addBook(Book book) {
-        books.add(book);
+    // Creates and adds a new book using the next available ID
+    public void addBook(String title, String author) {
+        Book newBook = new Book(nextBookId, title, author);
+        books.add(newBook);
+        nextBookId++;
+
         System.out.println("Book added successfully.");
+        System.out.println(newBook);
     }
 
-    // Displays every book in the library
+    // Displays every book in the system
     public void displayAllBooks() {
-        // This condition helps prevent printing an empty list with no explanation
         if (books.isEmpty()) {
             System.out.println("No books in the library.");
             return;
         }
 
-        // Loop goes through every book in the collection and prints it
+        System.out.println("\n--- All Books ---");
         for (Book book : books) {
             System.out.println(book);
         }
     }
 
-    // Lets a user borrow a book by title
-    public void borrowBook(String title) {
+    // Displays only books that are currently available
+    public void displayAvailableBooks() {
+        boolean foundAvailable = false;
+
+        System.out.println("\n--- Available Books ---");
         for (Book book : books) {
-            // equalsIgnoreCase lets the user type upper/lowercase without breaking the search
-            if (book.getTitle().equalsIgnoreCase(title)) {
-                if (book.isAvailable()) {
-                    book.setAvailable(false);
-                    System.out.println("You borrowed the book: " + book.getTitle());
-                } else {
-                    System.out.println("That book is already borrowed.");
-                }
-                return;
-            }
-        }
-
-        System.out.println("Book not found.");
-    }
-
-    // Lets a user return a book by title
-    public void returnBook(String title) {
-        for (Book book : books) {
-            if (book.getTitle().equalsIgnoreCase(title)) {
-                if (!book.isAvailable()) {
-                    book.setAvailable(true);
-                    System.out.println("You returned the book: " + book.getTitle());
-                } else {
-                    System.out.println("That book was already available.");
-                }
-                return;
-            }
-        }
-
-        System.out.println("Book not found.");
-    }
-
-    // Searches for one book and prints its information
-    public void searchBook(String title) {
-        for (Book book : books) {
-            if (book.getTitle().equalsIgnoreCase(title)) {
-                System.out.println("Book found:");
+            if (book.isAvailable()) {
                 System.out.println(book);
-                return;
+                foundAvailable = true;
             }
         }
 
-        System.out.println("Book not found.");
+        if (!foundAvailable) {
+            System.out.println("No available books right now.");
+        }
+    }
+
+    // Displays only books that are currently borrowed
+    public void displayBorrowedBooks() {
+        boolean foundBorrowed = false;
+
+        System.out.println("\n--- Borrowed Books ---");
+        for (Book book : books) {
+            if (!book.isAvailable()) {
+                System.out.println(book);
+                foundBorrowed = true;
+            }
+        }
+
+        if (!foundBorrowed) {
+            System.out.println("No borrowed books right now.");
+        }
+    }
+
+    // Lets the user borrow a book using its unique ID
+    public void borrowBookById(int id) {
+        Book book = findBookById(id);
+
+        if (book == null) {
+            System.out.println("Book not found.");
+            return;
+        }
+
+        if (!book.isAvailable()) {
+            System.out.println("That book is already borrowed.");
+            return;
+        }
+
+        book.setAvailable(false);
+        System.out.println("You borrowed: " + book.getTitle());
+    }
+
+    // Lets the user return a book using its unique ID
+    public void returnBookById(int id) {
+        Book book = findBookById(id);
+
+        if (book == null) {
+            System.out.println("Book not found.");
+            return;
+        }
+
+        if (book.isAvailable()) {
+            System.out.println("That book is already available.");
+            return;
+        }
+
+        book.setAvailable(true);
+        System.out.println("You returned: " + book.getTitle());
+    }
+
+    // Searches for a book by ID
+    public void searchBookById(int id) {
+        Book book = findBookById(id);
+
+        if (book == null) {
+            System.out.println("Book not found.");
+        } else {
+            System.out.println("Book found:");
+            System.out.println(book);
+        }
+    }
+
+    // Searches for books by title
+    // Using contains() makes searching more flexible than exact matching
+    public void searchBookByTitle(String title) {
+        boolean found = false;
+
+        System.out.println("\n--- Search Results ---");
+        for (Book book : books) {
+            if (book.getTitle().toLowerCase().contains(title.toLowerCase())) {
+                System.out.println(book);
+                found = true;
+            }
+        }
+
+        if (!found) {
+            System.out.println("No books matched that title.");
+        }
+    }
+
+    // Helper method used to find one book by its unique ID
+    // Keeping this logic in one place avoids repeated code
+    private Book findBookById(int id) {
+        for (Book book : books) {
+            if (book.getId() == id) {
+                return book;
+            }
+        }
+        return null;
     }
 }

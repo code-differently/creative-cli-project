@@ -7,16 +7,23 @@ public class Book {
         private String title;
         private String author;
         private boolean isAvailable;
+        private int id;
 
         // Constructor
-        public Book(String title, String author) {
+        public Book(int id, String title, String author) {
             this.title = title;
             this.author = author;
             this.isAvailable = true; // default value
+            this.id = id;
         }
 
+
         // Getter for title
-        public String getTitle() {
+    public int getId() {
+        return id;
+    }
+
+    public String getTitle() {
             return title;
         }
 
@@ -46,11 +53,19 @@ public class Book {
         }
 
         // toString method
-        @Override
-        public String toString() {
-            return "Book Title: " + title +
-                    ", Author: " + author +
-                    ", Available: " + isAvailable;
+
+    @Override
+    public String toString() {
+        String status;
+
+        if (isAvailable) {
+            status = "Available";
+        } else {
+            status = "Borrowed";
+        }
+
+        return "ID: " + id + " | Title: " + title + " | Author: " + author + " | Status: " + status;
+
         }
     }
 
