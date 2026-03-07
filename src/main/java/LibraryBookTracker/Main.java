@@ -53,7 +53,7 @@ public class Main {
                     searchBook(scanner, library);
                     break;
                 case 8:
-                    System.out.println("Thank you for visiting MW Library !");
+                    System.out.println("Thank you for visiting M&W Library !");
                     running = false;
                     break;
             }
@@ -62,7 +62,7 @@ public class Main {
 
     // Prints the main menu for the user
     public static void printMenu() {
-        System.out.println("\n===== Library Book Tracker =====");
+        System.out.println("\n===== M&W Library Book Tracker =====");
         System.out.println("1. Add a book");
         System.out.println("2. View all books");
         System.out.println("3. View available books");
