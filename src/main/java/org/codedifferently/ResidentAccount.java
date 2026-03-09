@@ -1,16 +1,20 @@
 package org.codedifferently;
 
+// Represents a resident's account for billing and payments
 public class ResidentAccount {
+
     private String residentName;
     private String apartmentNumber;
     private double balanceDue;
 
+    // Constructor
     public ResidentAccount(String residentName, String apartmentNumber, double balanceDue) {
         this.residentName = residentName;
         this.apartmentNumber = apartmentNumber;
         this.balanceDue = balanceDue;
     }
 
+    // Getter methods
     public String getResidentName() {
         return residentName;
     }
@@ -23,12 +27,14 @@ public class ResidentAccount {
         return balanceDue;
     }
 
+    // Adds a charge to the resident's balance
     public void addCharge(double amount) {
         if (amount > 0) {
             balanceDue += amount;
         }
     }
 
+    // Allows resident to make a payment
     public void makePayment(double amount) {
         if (amount > 0 && amount <= balanceDue) {
             balanceDue -= amount;
@@ -37,6 +43,7 @@ public class ResidentAccount {
         }
     }
 
+    // Display account information
     @Override
     public String toString() {
         return "Resident: " + residentName +
