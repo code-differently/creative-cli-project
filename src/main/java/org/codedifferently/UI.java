@@ -20,12 +20,13 @@ public class UI {
             System.out.println("7. View Song Catalog");
             System.out.println("8. Generate Setlist");
             System.out.println("9. Calculate Total Earnings");
+            System.out.println("0. Close App");
             System.out.println("====================================================");
 
             System.out.println("Select option: ");
             int choice = sc.nextInt();
 
-            switch (choice) {
+            switch (choice!=0) {
                 case 1:
                     Venue venue = venue.promptNewVenue();
                     System.out.println("Enter date of gig: ");
@@ -33,26 +34,31 @@ public class UI {
                     System.out.println("How much is gig paying? ");
                     double payment = sc.nextDouble();
                     Gig newGig = new Gig(date,venue,payment);
+                    bgm.addGig(newGig);
                     break;
                 case 2:
-                    bgm;
+                    bgm.viewAllGigs();
                     break;
                 case 3:
                     bgm.
                 case 4:
                     bgm.viewUpcomingGigs();
+
                     break;
                 case 5:
                     bgm.viewCompletedGigs();
                     break;
                 case 6: bgm.viewAllGigs();
-                break;
+                    break;
                 case7: bgm.getSongCatalog();
-                break;
+                    break;
+                case 8:
+                    bgm.generateSetlistForGig();
+                    break;
                 case 9:
                     bgm.calculateTotalEarnings();
-                case 9:
-                    bgm.calculateTotalEarnings();
+                case 0:
+                    choice=0;
                 default:
                     System.out.println("Invalid Selection. Please try again");
             }
