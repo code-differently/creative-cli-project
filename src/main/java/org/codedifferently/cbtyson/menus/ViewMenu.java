@@ -3,6 +3,7 @@ package org.codedifferently.cbtyson.menus;
 import org.codedifferently.cbtyson.data.Group;
 import org.codedifferently.cbtyson.data.GroupList;
 import org.codedifferently.cbtyson.data.Student;
+import org.codedifferently.cbtyson.helpers.InputHandler;
 
 public class ViewMenu {
 
@@ -27,5 +28,8 @@ public class ViewMenu {
             System.out.println("==================================");
             System.out.println();
         }
+        System.out.println("Press anything to continue");
+        System.out.println("==============================");
+        InputHandler.handleStringInput();
     }
 }

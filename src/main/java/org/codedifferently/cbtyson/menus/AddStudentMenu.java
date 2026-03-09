@@ -34,7 +34,7 @@ public class AddStudentMenu {
             int age = InputHandler.handleIntegerInput();
 
             System.out.println("Enter their GPA: ");
-            String gpa = InputHandler.handleDoubleInput();
+            double gpa = InputHandler.handleDoubleInput();
 
             // Generate a new UUID object
             String studentID = UUID.randomUUID().toString();
@@ -42,16 +42,36 @@ public class AddStudentMenu {
 
             Student student = new Student(firstName, lastName, email, studentID, age, gpa);
 
-            System.out.println();
-            System.out.println("Which group is this new student going to?");
-            System.out.println("Enter the Group ID here:");
 
-            //Actually add student to group
-            String groupID = InputHandler.handleStringInput();
-            GroupList.AddStudentToGroup(groupID, student);
+            boolean studentAddedToGroup = false;
+
+            while(!studentAddedToGroup) {
+                System.out.println();
+                System.out.println("Which group is this new student going to?");
+                System.out.println("Enter the Group ID here:");
+
+                //Actually add student to group
+                String groupID = InputHandler.handleStringInput();
+                boolean hasAddedStudent = GroupList.AddStudentToGroup(groupID, student);
+
+
+                if(!hasAddedStudent) {
+                    System.out.println("What you like to create a new Group to add this student to? (y/n)");
+                    System.out.println("=============================================================");
+                    String answerStr = InputHandler.handleYesNoInput();
+                    if (answerStr.equals("y")) {
+                        AddGroupMenu addGroupMenu = new AddGroupMenu();
+                        addGroupMenu.promptGroupMenu(student);
+                        studentAddedToGroup = true;
+                    }
+                }
+                else {
+                    studentAddedToGroup = true;
+                }
+            }
 
             System.out.println();
-            System.out.println("Make another one? (y/n)");
+            System.out.println("Continue adding students? (y/n)");
             System.out.println("=========================================");
 
             String answerStr = InputHandler.handleYesNoInput();
