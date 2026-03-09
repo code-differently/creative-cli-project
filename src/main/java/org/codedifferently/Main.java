@@ -33,7 +33,7 @@ public class Main {
                 scan.nextLine();
                 continue;
             }
-
+//
             switch (choice) {
                 case 1:
                     addResidentAccount(accounts, scan);
