@@ -45,25 +45,25 @@ public class InputHandler {
         return scanInput;
     }
 
-    public static String handleDoubleInput() {
+    public static Double handleDoubleInput() {
         Scanner scan = new Scanner(System.in);
-        String scanInput = "";
+        double scanInput = 0;
         boolean validScanInput = false;
         //While loop to make sure user puts in the correct input
         while(!validScanInput) {
             //Call Scanner methods
             try {
                 //Scanner method to collect input
-                scanInput = scan.nextLine();
+                scanInput = scan.nextDouble();
                 validScanInput = true;
             }
             catch (Exception e) {
                 //If user enters invalid input, the catch block will prevent errors.
-                System.out.println("Invalid input! Try typing a valid String!");
+                System.out.println("Invalid input! Try typing a valid Double!");
                 scan.next();
             }
         }
-        return String.format(".%2f", scanInput);
+        return scanInput;
     }
 
     public static String handleYesNoInput() {

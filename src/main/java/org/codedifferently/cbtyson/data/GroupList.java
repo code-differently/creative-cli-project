@@ -15,7 +15,7 @@ public class GroupList {
         groups.add(group);
     }
 
-    public static void AddStudentToGroup(String groupID,Student student) {
+    public static boolean AddStudentToGroup(String groupID,Student student) {
 
         boolean groupFound = false;
 
@@ -30,21 +30,74 @@ public class GroupList {
             System.out.println("Group not found!");
         }
 
+        return groupFound;
+
     }
 
-    public static void RemoveStudentFromGroup(String groupID, Student student) {
+    public static boolean RemoveStudentFromGroup(String groupID, String studentID) {
 
         boolean groupFound = false;
+        boolean studentFound = false;
 
         for (Group group : groups) {
             if(group.getGroupID().equals(groupID)) {
                 groupFound = true;
-                group.getStudentList().remove(student);
+                for(Student student : group.getStudentList()) {
+                    if(student.getStudentID().equals(studentID)) {
+                        studentFound = true;
+                        group.getStudentList().remove(student);
+                        return true;
+                    }
+                }
+
             }
         }
 
-        if(!groupFound) {
-            System.out.println("Group not found!");
+        if(!studentFound && groupFound) {
+            System.out.println("Student ID not found!");
         }
+
+        if(!groupFound) {
+            System.out.println("Group ID not found!");
+        }
+        return false;
+    }
+
+    public static Student GetStudentFromGroup(String groupID, String studentID) {
+        boolean groupFound = false;
+        boolean studentFound = false;
+
+        for (Group group : groups) {
+            if(group.getGroupID().equals(groupID)) {
+                groupFound = true;
+                for(Student student : group.getStudentList()) {
+                    if(student.getStudentID().equals(studentID)) {
+                        studentFound = true;
+                        return student;
+                    }
+                }
+
+            }
+        }
+
+        if(!studentFound && groupFound) {
+            System.out.println("Student ID not found!");
+        }
+
+        if(!groupFound) {
+            System.out.println("Group ID not found!");
+        }
+        return null;
+    }
+
+    public static String GetGroupIDFromStudentID(String studentID) {
+        for(Group group  : groups) {
+            for(Student student : group.getStudentList()) {
+                if(student.getStudentID().equals(studentID)) {
+                    return group.getGroupID();
+                }
+            }
+        }
+        return null;
     }
 }
