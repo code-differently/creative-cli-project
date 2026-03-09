@@ -34,7 +34,7 @@ public class AddStudentMenu {
             int age = InputHandler.handleIntegerInput();
 
             System.out.println("Enter their GPA: ");
-            String gpa = InputHandler.handleStringInput();
+            double gpa = InputHandler.handleDoubleInput();
 
             // Generate a new UUID object
             String studentID = UUID.randomUUID().toString();
