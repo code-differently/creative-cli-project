@@ -138,4 +138,5 @@ public class Menu {
     public int getTotalItems() {
         return hotDrinks.size() + coldDrinks.size() + blended.size() + food.size();
     }
+
 }

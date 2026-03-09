@@ -116,4 +116,5 @@ public class Receipt {
     public int getFreeItemsGranted() {
         return freeItems;
     }
+
 }
