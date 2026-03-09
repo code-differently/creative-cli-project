@@ -1,48 +1,47 @@
 package org.codedifferently;
 
 public abstract class ServiceRequest {
+    protected String tenantName;
+    protected String apartmentNumber;
+    protected String status;
 
-        protected String residentName;
-        protected int apartmentNumber;
-        protected String severity;
-        protected String status;
+    public ServiceRequest() {
+        this.status = "NEW";
+    }
 
-        public ServiceRequest(String residentName, int apartmentNumber, String severity) {
-            this.residentName = residentName;
-            this.apartmentNumber = apartmentNumber;
-            this.severity = severity;
-            this.status = "NEW";
-        }
+    public ServiceRequest(String tenantName, String apartmentNumber) {
+        this.tenantName = tenantName;
+        this.apartmentNumber = apartmentNumber;
+        this.status = "NEW";
+    }
 
-        public String getResidentName() {
-            return residentName;
-        }
+    public String getTenantName() {
+        return tenantName;
+    }
 
-        public int getApartmentNumber() {
-            return apartmentNumber;
-        }
+    public String getApartmentNumber() {
+        return apartmentNumber;
+    }
 
-        public String getSeverity() {
-            return severity;
-        }
+    public String getStatus() {
+        return status;
+    }
 
-        public String getStatus() {
-            return status;
-        }
+    public void setTenantName(String tenantName) {
+        this.tenantName = tenantName;
+    }
 
-        public void setStatus(String status) {
+    public void setApartmentNumber(String apartmentNumber) {
+        this.apartmentNumber = apartmentNumber;
+    }
+
+    public void setStatus(String status) {
+        if (status.equals("NEW") || status.equals("IN_PROGRESS") || status.equals("DONE")) {
             this.status = status;
-        }
-
-        public abstract String getRequestType();
-
-        @Override
-        public String toString() {
-            return getRequestType() +
-                    " | Resident: " + residentName +
-                    " | Apt: " + apartmentNumber +
-                    " | Severity: " + severity +
-                    " | Status: " + status;
+        } else {
+            System.out.println("INVALID STATUS UPDATE");
         }
     }
 
+    public abstract String getRequestType();
+}
