@@ -101,6 +101,7 @@ public class Main {
         library.addBook("To Kill a Mockingbird", "Harper Lee");
         library.addBook("The Godfather", "Mario Puzo");
         library.addBook("Harry Potter", "J. K. Rowling");
+        //"Charlie and the Chocolate Factory" by Roald Dahl
     }
 
     // Collects input for a new book and sends it to the Library
@@ -134,6 +135,10 @@ public class Main {
         System.out.println("1. ID");
         System.out.println("2. Title");
         System.out.print("Choose an option: ");
+
+        //This method acts like a menu for searching books.
+        // It asks the user whether they want to search by ID or title, validates the input,
+        // Also then sends that value to the appropriate search method in the Library class.
 
         int searchChoice = getValidatedSearchChoice(scanner);
 

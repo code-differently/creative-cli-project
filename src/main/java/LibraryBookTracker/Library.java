@@ -126,6 +126,10 @@ public class Library {
     public void searchBookByTitle(String title) {
         boolean found = false;
 
+        //This code loops through a list of books and checks if each book’s title contains the user’s search term.
+        // It converts both strings to lowercase to make the search case-insensitive,
+        // prints any matching books, and shows a message if no matches are found.
+
         System.out.println("\n--- Search Results ---");
         for (Book book : books) {
             if (book.getTitle().toLowerCase().contains(title.toLowerCase())) {
