@@ -1,0 +1,77 @@
+@startuml
+
+Class FitnessApp{
++ startApp(): void
+}
+
+Class Person{
+- name: String
+- email: String
+- workouts: ArrayList<Workout>
+
++ getName(): String
++ setName(name: String): void
+
++ getEmail(): String
++ setEmail(email: String): void
+
++ getWorkouts(): ArrayList<Workout>
++ setWorkouts(workouts: ArrayList<Workout>): void
+}
+
+Class Workout{
+- duration: String
+- date: Date
+- completed: boolean
+- exercise: ArrayList<Exercise>
+
++ getDuration(): String
++ setDuration(duration: String): void
+
++ getDate(): Date
++ setDate(date: Date): void
+
++ getCompleted(): boolean
++ setCompleted(completed: boolean): void
+
++ getExercise(): ArrayList<Exercise>
++ setExercise(exercise: ArrayList<Exercise>): void
+
++ displayWorkoutInfo(): void
+}
+
+Class Exercise{
+- type: WorkoutType
+- name: String
+- caloriesBurned: double
+
++ getType(): WorkoutType
++ setType(type: WorkoutType): void
+
++ getCaloriesBurned(): double
++ setCaloriesBurned(caloriesBurned: double): void
+}
+
+enum WorkoutType{
+CHEST
+BACK
+SHOULDER
+ARMS
+CARDIO
+LEGS
+}
+
+' Relationships
+FitnessApp "1" --> "*" Person : manages users
+' One fitness app can contain multiple people
+
+Person "1" --> "*" Workout : performs
+' A person can complete many workouts
+
+Workout "1" --> "*" Exercise : contains
+' A workout is made up of multiple exercises
+
+Exercise --> WorkoutType : categorized by
+' Each exercise belongs to one workout type
+
+@enduml
