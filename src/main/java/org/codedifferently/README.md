@@ -60,7 +60,7 @@ display upcoming gigs
 calculate total earnings
 store default band members
 store a song catalog
-generate setlists for gigs
+generate setlists for gigs (weighted setlists)
 
 - UI()
 This class handles menus and user prompts with Scanner to keep Main method clean.
@@ -84,11 +84,12 @@ We were not able to implement gigID or eventName. This is something we can look 
 as we still think these are important identifiers to have.
 
 -BandGigManager
-We managed to essentially accomplish everything we set out to do with this class. We were
+We managed to mostly accomplish everything we set out to do with this class. We were
 also able to incorporate features like band lineup adjustment. One thing that we missed which we could improve,
 pertaining to the bandGigManager and Gig is using actual date/times for tracking gigs. We could have
 displayed these to the user in chronological order (instead of order of first insertion), but this is 
-something we could accomplish with more time. 
+something we could accomplish with more time. Additionally, we could've incorporated weighted setlists, which is something 
+we wanted to try to tackle during planning. We also might consider using a set for setlist (since it can't contain duplicates).
 
 -UI
 Completely implemented, handles all user input and runs main program loop. We ran into issues with menu complexity,
@@ -103,7 +104,8 @@ incorporated them into our code.
 ## THE REFLECTION
 -Our program is a complete MVP, functionally accomplishing everything that we wanted to. The code and structure is pretty
 well organized, however we can incorporate more detailed comments. There are also leftover getter/setter methods that were 
-never actually used in the project, that are still hanging around. These could be removed or given a use in the program.
+never actually used in the project, that are still hanging around. These could be removed or given a use in the program. We also
+mentioned some additional features we could add in BandGigManager. 
 We used a lot of Encapsulation throughout the project, included in Gig, Venue, and BandGigManager
 classes which have private fields being accessed by getters and setters. There was polymorphism used, with multiple overloaded functions.
 Abstraction was used in a conceptual sense with class design, but not implemented with abstract classes or interfaces.
