@@ -1,6 +1,6 @@
 package org.codedifferently;
 
-// Customer models a rewards member at Triple C's Coffee Shop.
+// Customer models a rewards member at Money Bucks's Coffee Shop.
 // It tracks personal info, punch card progress, and their spending tier.
 //
 // TIER SYSTEM (based on transaction total):
@@ -95,7 +95,7 @@ public class Customer {
         return TIER_NONE;
     }
 
-    // Returns a human-readable description of the tier benefit for the receipt
+    // Returns a readable description of the tier benefit for the receipt
     public static String getTierDescription(int tier) {
         switch (tier) {
             case TIER_1: return "Tier 1 - 5% discount applied!";

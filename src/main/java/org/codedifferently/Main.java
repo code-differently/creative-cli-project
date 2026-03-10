@@ -3,7 +3,7 @@ package org.codedifferently;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-// Main is the entry point and controls all program flow for Triple C's Coffee Shop.
+// Main is the entry point and controls all program flow for Money Bucks Coffee Shop.
 // It coordinates between Menu, Customer, Sales, and Receipt to process each transaction.
 //
 // NEW FEATURES ADDED:
