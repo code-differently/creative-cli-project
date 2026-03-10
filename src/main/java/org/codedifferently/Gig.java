@@ -73,6 +73,7 @@ public class Gig {
         this.setlist = setlist;
     }
 
+
     public void addBandMember(String member) {
         lineup.add(member);
     }
@@ -98,6 +99,14 @@ public class Gig {
             return "Completed";
         }
         return "Scheduled";
+    }
+
+    public void swapBandMember(String oldMember, String newMember) {
+        int index = lineup.indexOf(oldMember);
+
+        if (index != -1) {
+            lineup.set(index, newMember);
+        }
     }
 
     @Override

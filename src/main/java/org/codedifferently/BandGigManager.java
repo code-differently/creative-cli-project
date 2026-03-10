@@ -140,6 +140,7 @@ public class BandGigManager {
         }
     }
 
+    //unused currently
     public void viewGigDetails(int index) {
         Gig gig = findGigByIndex(index);
 

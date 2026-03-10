@@ -10,7 +10,7 @@ Our 3 sprints took place over 1 day, March 9th.
 During sprint planning, we divided responsibilities as follows:
 
 Alex was responsible for initial app setup with classes and core methods.
-Fred was responsible for input handling and user interfaces(menus) nd README.md .
+Fred was responsible for input handling and user interfaces(menus) and README.md .
 Henrietta assisted with leaving code comments explaining logic and other discretionary touch-ups.
 
 We plan to allow users to do the following:
