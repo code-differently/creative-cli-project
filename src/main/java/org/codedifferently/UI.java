@@ -4,11 +4,13 @@ import org.codedifferently.helpers.InputHandler;
 
 import java.util.Scanner;
 
+//houses all user input logic + helper functions for updating gig info
 public class UI {
 
     private final BandGigManager bgm = new BandGigManager();
     private final Scanner sc = new Scanner(System.in);
 
+    //loop to ask for and collect user input, loop used so it keeps program running until user quits
     public void startProgram() {
         boolean running = true;
 
@@ -22,6 +24,7 @@ public class UI {
             System.out.println("====================================================");
             System.out.print("Select option: ");
 
+            //uses helper functions in InputHandler to validate user input
             int choice = InputHandler.handleIntegerInput(sc);
 
             switch (choice) {
@@ -47,6 +50,7 @@ public class UI {
         }
     }
 
+    //subdivision to help make menus cleaner
     private void showGigMenu() {
         boolean running = true;
 
@@ -92,6 +96,7 @@ public class UI {
         } while (running);
     }
 
+    //subdivision to help make menus cleaner
     private void showSongMenu() {
         boolean running = true;
 
@@ -136,228 +141,8 @@ public class UI {
             }
         } while (running);
     }
-    private void addNewGig() {
-        System.out.print("Enter name of gig venue: ");
-        String venueName = InputHandler.handleStringInput(sc);
 
-        System.out.print("Enter city/state of venue: ");
-        String city = InputHandler.handleStringInput(sc);
-
-        System.out.print("Enter venue capacity: ");
-        int capacity = InputHandler.handleIntegerInput(sc);
-
-        Venue venue = new Venue(venueName, city, capacity);
-
-        System.out.print("Enter date of gig: ");
-        String date = InputHandler.handleStringInput(sc);
-
-        System.out.print("How much is the gig paying? ");
-        double payment = InputHandler.handleDoubleInput(sc);
-
-        Gig newGig = new Gig(date, venue, payment);
-        bgm.addGig(newGig);
-
-        System.out.println("Gig added successfully.");
-    }
-
-    private void viewVenueInformation() {
-        if (bgm.getGigs().isEmpty()) {
-            System.out.println("No gigs available.");
-            return;
-        }
-
-        int gigIndex = promptForGigIndex("Enter gig number to view venue information: ");
-        if (gigIndex == -1) {
-            return;
-        }
-
-        Gig gig = bgm.findGigByIndex(gigIndex);
-        System.out.println(gig.getVenue());
-    }
-
-    private void markGigComplete() {
-        if (bgm.getGigs().isEmpty()) {
-            System.out.println("No gigs available.");
-            return;
-        }
-
-        int gigIndex = promptForGigIndex("Enter gig number to mark as completed: ");
-        if (gigIndex == -1) {
-            return;
-        }
-
-        boolean success = bgm.markGigCompleteByIndex(gigIndex);
-
-        if (success) {
-            System.out.println("Gig marked as completed.");
-        } else {
-            System.out.println("Invalid gig selection.");
-        }
-    }
-
-    private void addSongToCatalog() {
-        System.out.print("Enter name of song to add to catalog: ");
-        String song = InputHandler.handleStringInput(sc);
-        bgm.addSongToCatalog(song);
-        System.out.println("Song added to catalog.");
-    }
-
-    private void viewSongCatalog() {
-        if (bgm.getSongCatalog().isEmpty()) {
-            System.out.println("Song catalog is empty.");
-            return;
-        }
-
-        System.out.println("Song Catalog:");
-        for (int i = 0; i < bgm.getSongCatalog().size(); i++) {
-            System.out.println((i + 1) + ". " + bgm.getSongCatalog().get(i));
-        }
-    }
-
-    private void generateSetlist() {
-        if (bgm.getGigs().isEmpty()) {
-            System.out.println("No gigs available.");
-            return;
-        }
-
-        if (bgm.getSongCatalog().isEmpty()) {
-            System.out.println("Song catalog is empty.");
-            return;
-        }
-
-        System.out.println("Select a gig to generate a setlist for:");
-        bgm.viewAllGigs();
-
-        int gigIndex = promptForGigIndex("Enter gig number: ");
-        if (gigIndex == -1) {
-            return;
-        }
-
-        System.out.print("How many songs should be in the setlist? ");
-        int numberOfSongs = InputHandler.handleIntegerInput(sc);
-
-        boolean success = bgm.generateSetlistForGigByIndex(gigIndex, numberOfSongs);
-
-        if (!success) {
-            System.out.println("Could not generate setlist. The gig may be invalid or already completed.");
-            return;
-        }
-
-        Gig gig = bgm.findGigByIndex(gigIndex);
-        System.out.println("Setlist generated for this gig.");
-        System.out.println("Setlist: " + gig.getSetlist());
-    }
-
-    private void viewGigSetlist() {
-        if (bgm.getGigs().isEmpty()) {
-            System.out.println("No gigs available.");
-            return;
-        }
-
-        System.out.println("Select a gig to view its setlist:");
-        bgm.viewAllGigs();
-
-        int gigIndex = promptForGigIndex("Enter gig number: ");
-        if (gigIndex == -1) {
-            return;
-        }
-
-
-
-        Gig gig = bgm.findGigByIndex(gigIndex);
-
-        if (gig.getSetlist().isEmpty()) {
-            System.out.println("This gig does not have a setlist yet.");
-            return;
-        }
-
-        System.out.println("\nSetlist for " + gig.getDate() + " at " + gig.getVenue().getName() + ":");
-        for (int i = 0; i < gig.getSetlist().size(); i++) {
-            System.out.println((i + 1) + ". " + gig.getSetlist().get(i));
-        }
-    }
-
-    private void viewGigDetails() {
-        if (bgm.getGigs().isEmpty()) {
-            System.out.println("No gigs available.");
-            return;
-        }
-
-        System.out.println("Select a gig to view details:");
-        bgm.viewAllGigs();
-
-        int gigIndex = promptForGigIndex("Enter gig number: ");
-        if (gigIndex == -1) {
-            return;
-        }
-
-        bgm.viewGigDetails(gigIndex);
-    }
-
-    private void addSongToGigSetlist() {
-        if (bgm.getGigs().isEmpty()) {
-            System.out.println("No gigs available.");
-            return;
-        }
-
-        System.out.println("Select a gig to add a song to:");
-        bgm.viewAllGigs();
-
-        int gigIndex = promptForGigIndex("Enter gig number: ");
-        if (gigIndex == -1) {
-            return;
-        }
-
-        System.out.print("Enter song name to add to this gig's setlist: ");
-        String song = InputHandler.handleStringInput(sc);
-
-        boolean success = bgm.addSongToGigSetlist(gigIndex, song);
-
-        if (success) {
-            System.out.println("Song added to this gig's setlist.");
-        } else {
-            System.out.println("Cannot modify the setlist of a completed or invalid gig.");
-        }
-    }
-
-    private void removeSongFromGigSetlist() {
-        if (bgm.getGigs().isEmpty()) {
-            System.out.println("No gigs available.");
-            return;
-        }
-
-        System.out.println("Select a gig to remove a song from:");
-        bgm.viewAllGigs();
-
-        int gigIndex = promptForGigIndex("Enter gig number: ");
-        if (gigIndex == -1) {
-            return;
-        }
-
-        Gig gig = bgm.findGigByIndex(gigIndex);
-
-        if (gig.getSetlist().isEmpty()) {
-            System.out.println("This gig does not have a setlist yet.");
-            return;
-        }
-
-        System.out.println("Current setlist:");
-        for (int i = 0; i < gig.getSetlist().size(); i++) {
-            System.out.println((i + 1) + ". " + gig.getSetlist().get(i));
-        }
-
-        System.out.print("Enter the number of the song to remove: ");
-        int songIndex = InputHandler.handleIntegerInput(sc);
-
-        String removedSong = bgm.removeSongFromGigSetlist(gigIndex, songIndex - 1);
-
-        if (removedSong == null) {
-            System.out.println("Could not remove song. The gig may be completed or the selection was invalid.");
-        } else {
-            System.out.println("Removed song: " + removedSong);
-        }
-    }
-
+    //subdivision to help make menus cleaner
     private void adjustGigLineupMenu() {
         if (bgm.getGigs().isEmpty()) {
             System.out.println("No gigs available.");
@@ -429,7 +214,7 @@ public class UI {
             }
         }
     }
-
+//helper function to get gig being referenced by user
     private int promptForGigIndex(String prompt) {
         System.out.print(prompt);
         int gigNumber = InputHandler.handleIntegerInput(sc);
@@ -441,5 +226,238 @@ public class UI {
         }
 
         return gigNumber - 1;
+    }
+
+//function to collect user input needed to create a new gig
+    private void addNewGig() {
+        System.out.print("Enter name of gig venue: ");
+        String venueName = InputHandler.handleStringInput(sc);
+
+        System.out.print("Enter city/state of venue: ");
+        String city = InputHandler.handleStringInput(sc);
+
+        System.out.print("Enter venue capacity: ");
+        int capacity = InputHandler.handleIntegerInput(sc);
+
+        Venue venue = new Venue(venueName, city, capacity);
+
+        System.out.print("Enter date of gig: ");
+        String date = InputHandler.handleStringInput(sc);
+
+        System.out.print("How much is the gig paying? ");
+        double payment = InputHandler.handleDoubleInput(sc);
+
+        Gig newGig = new Gig(date, venue, payment);
+        bgm.addGig(newGig);
+
+        System.out.println("Gig added successfully.");
+    }
+
+    //unused in current implementation, can display info about a venue
+    private void viewVenueInformation() {
+        if (bgm.getGigs().isEmpty()) {
+            System.out.println("No gigs available.");
+            return;
+        }
+
+        int gigIndex = promptForGigIndex("Enter gig number to view venue information: ");
+        if (gigIndex == -1) {
+            return;
+        }
+
+        Gig gig = bgm.findGigByIndex(gigIndex);
+        System.out.println(gig.getVenue());
+    }
+
+    //calls helper to figure out which gig is being referenced and marks it as complete
+    private void markGigComplete() {
+        if (bgm.getGigs().isEmpty()) {
+            System.out.println("No gigs available.");
+            return;
+        }
+
+        int gigIndex = promptForGigIndex("Enter gig number to mark as completed: ");
+        if (gigIndex == -1) {
+            return;
+        }
+
+        boolean success = bgm.markGigCompleteByIndex(gigIndex);
+
+        if (success) {
+            System.out.println("Gig marked as completed.");
+        } else {
+            System.out.println("Invalid gig selection.");
+        }
+    }
+
+    //collects user input for which song to use as an argument for bgm.addSongToCatalog
+    private void addSongToCatalog() {
+        System.out.print("Enter name of song to add to catalog: ");
+        String song = InputHandler.handleStringInput(sc);
+        bgm.addSongToCatalog(song);
+        System.out.println("Song added to catalog.");
+    }
+
+    //loops through each song in bgm and prints them
+    private void viewSongCatalog() {
+        if (bgm.getSongCatalog().isEmpty()) {
+            System.out.println("Song catalog is empty.");
+            return;
+        }
+
+        System.out.println("Song Catalog:");
+        for (int i = 0; i < bgm.getSongCatalog().size(); i++) {
+            System.out.println((i + 1) + ". " + bgm.getSongCatalog().get(i));
+        }
+    }
+
+    //collects user input on which gig to generate a setlist for, generates setlist using bgm method
+    // based on user input for set length, as well as songs in catalog
+    private void generateSetlist() {
+        if (bgm.getGigs().isEmpty()) {
+            System.out.println("No gigs available.");
+            return;
+        }
+
+        if (bgm.getSongCatalog().isEmpty()) {
+            System.out.println("Song catalog is empty.");
+            return;
+        }
+
+        System.out.println("Select a gig to generate a setlist for:");
+        bgm.viewAllGigs();
+
+        int gigIndex = promptForGigIndex("Enter gig number: ");
+        if (gigIndex == -1) {
+            return;
+        }
+
+        System.out.print("How many songs should be in the setlist? ");
+        int numberOfSongs = InputHandler.handleIntegerInput(sc);
+
+        boolean success = bgm.generateSetlistForGigByIndex(gigIndex, numberOfSongs);
+
+        if (!success) {
+            System.out.println("Could not generate setlist. The gig may be invalid or already completed.");
+            return;
+        }
+
+        Gig gig = bgm.findGigByIndex(gigIndex);
+        System.out.println("Setlist generated for this gig.");
+        System.out.println("Setlist: " + gig.getSetlist());
+    }
+
+    //takes user input to use for displaying setlist info about a particular gig
+    private void viewGigSetlist() {
+        if (bgm.getGigs().isEmpty()) {
+            System.out.println("No gigs available.");
+            return;
+        }
+
+        System.out.println("Select a gig to view its setlist:");
+        bgm.viewAllGigs();
+
+        int gigIndex = promptForGigIndex("Enter gig number: ");
+        if (gigIndex == -1) {
+            return;
+        }
+
+
+
+        Gig gig = bgm.findGigByIndex(gigIndex);
+
+        if (gig.getSetlist().isEmpty()) {
+            System.out.println("This gig does not have a setlist yet.");
+            return;
+        }
+
+        System.out.println("\nSetlist for " + gig.getDate() + " at " + gig.getVenue().getName() + ":");
+        for (int i = 0; i < gig.getSetlist().size(); i++) {
+            System.out.println((i + 1) + ". " + gig.getSetlist().get(i));
+        }
+    }
+
+    //takes user input to use for displaying  info about a particular gig
+    private void viewGigDetails() {
+        if (bgm.getGigs().isEmpty()) {
+            System.out.println("No gigs available.");
+            return;
+        }
+
+        System.out.println("Select a gig to view details:");
+        bgm.viewAllGigs();
+
+        int gigIndex = promptForGigIndex("Enter gig number: ");
+        if (gigIndex == -1) {
+            return;
+        }
+
+        bgm.viewGigDetails(gigIndex);
+    }
+
+    //takes user input to use in bgm method to manually add a song to a setlist
+    private void addSongToGigSetlist() {
+        if (bgm.getGigs().isEmpty()) {
+            System.out.println("No gigs available.");
+            return;
+        }
+
+        System.out.println("Select a gig to add a song to:");
+        bgm.viewAllGigs();
+
+        int gigIndex = promptForGigIndex("Enter gig number: ");
+        if (gigIndex == -1) {
+            return;
+        }
+
+        System.out.print("Enter song name to add to this gig's setlist: ");
+        String song = InputHandler.handleStringInput(sc);
+
+        boolean success = bgm.addSongToGigSetlist(gigIndex, song);
+
+        if (success) {
+            System.out.println("Song added to this gig's setlist.");
+        } else {
+            System.out.println("Cannot modify the setlist of a completed or invalid gig.");
+        }
+    }
+
+    //takes user input to use in bgm method to manually remove a song from a setlist
+    private void removeSongFromGigSetlist() {
+        if (bgm.getGigs().isEmpty()) {
+            System.out.println("No gigs available.");
+            return;
+        }
+
+        System.out.println("Select a gig to remove a song from:");
+        bgm.viewAllGigs();
+
+        int gigIndex = promptForGigIndex("Enter gig number: ");
+        if (gigIndex == -1) {
+            return;
+        }
+
+        Gig gig = bgm.findGigByIndex(gigIndex);
+
+        if (gig.getSetlist().isEmpty()) {
+            System.out.println("This gig does not have a setlist yet.");
+            return;
+        }
+
+        System.out.println("Current setlist:");
+        for (int i = 0; i < gig.getSetlist().size(); i++) {
+            System.out.println((i + 1) + ". " + gig.getSetlist().get(i));
+        }
+
+        System.out.print("Enter the number of the song to remove: ");
+        int songIndex = InputHandler.handleIntegerInput(sc);
+
+        String removedSong = bgm.removeSongFromGigSetlist(gigIndex, songIndex - 1);
+
+        if (removedSong == null) {
+            System.out.println("Could not remove song. The gig may be completed or the selection was invalid.");
+        } else {
+            System.out.println("Removed song: " + removedSong);
+        }
     }
 }

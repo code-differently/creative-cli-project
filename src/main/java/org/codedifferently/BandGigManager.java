@@ -3,7 +3,11 @@ package org.codedifferently;
 import java.util.ArrayList;
 import java.util.Collections;
 
+//stores main abstraction of modifier methods we call when we want to update/view/adjust fields in the program
 public class BandGigManager {
+    //arraylists used because we need a collection to store objects that is not fixed in size
+    //needed to be able to easily add and remove objects from list, and access them with indexing
+    //for this reason ArrayList was a good choice
     private final ArrayList<Gig> gigs;
     private final ArrayList<String> songCatalog;
     private final ArrayList<String> defaultBandMembers;
