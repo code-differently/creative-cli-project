@@ -1,0 +1,52 @@
+@startuml
+
+class Book {
+  - id : int
+  - title : String
+  - author : String
+  - isAvailable : boolean
+  + Book(id : int, title : String, author : String)
+  + getId() : int
+  + setId(id : int) : void
+  + getTitle() : String
+  + setTitle(title : String) : void
+  + getAuthor() : String
+  + setAuthor(author : String) : void
+  + isAvailable() : boolean
+  + setAvailable(available : boolean) : void
+  + toString() : String
+}
+
+class Library {
+  - books : ArrayList<Book>
+  - nextBookId : int
+  + Library()
+  + addBook(title : String, author : String) : void
+  + displayAllBooks() : void
+  + displayAvailableBooks() : void
+  + displayBorrowedBooks() : void
+  + borrowBookById(id : int) : void
+  + returnBookById(id : int) : void
+  + searchBookById(id : int) : void
+  + searchBookByTitle(title : String) : void
+  - findBookById(id : int) : Book
+}
+
+class Main {
+  + main(args : String[]) : void
+  + startApplication(scanner : Scanner, library : Library) : void
+  + printMenu() : void
+  + getValidatedMenuChoice(scanner : Scanner) : int
+  + addStarterBooks(library : Library) : void
+  + addBook(scanner : Scanner, library : Library) : void
+  + borrowBook(scanner : Scanner, library : Library) : void
+  + returnBook(scanner : Scanner, library : Library) : void
+  + searchBook(scanner : Scanner, library : Library) : void
+  + getValidatedSearchChoice(scanner : Scanner) : int
+  + getValidatedPositiveNumber(scanner : Scanner) : int
+}
+
+Library "1" --> "*" Book : manages
+Main --> Library : uses
+
+@enduml
