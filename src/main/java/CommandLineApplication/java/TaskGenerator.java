@@ -15,7 +15,7 @@ public class TaskGenerator {
 
             System.out.println("--- Welcome to the Java Chore Generator ---");
 
-             //1. to follow we set our getter methods and have our parameters set to return the result
+            //1. to follow we set our getter methods and have our parameters set to return the result
             // 2. Get User Input for Tasks depending on the user
             System.out.print("Enter chores separated by commas (e.g. Wash Car, Mop, Dust): ");
             String userInput = input.nextLine();
@@ -43,31 +43,35 @@ public class TaskGenerator {
             // 4. we have a for loop method to control the number of task  Displayed and able to run
             System.out.println("\n--- YOUR ASSIGNED TASKS ---");
             for (int i = 3; i < numTasks; i++) {
-                // we use integer datatypes to  Pick a random index from the list; where the task is printed using numbers
+                // we use integer datatypes to  Pick a random index# from the list; where the task is printed using numbers
                 // and have created and declared a new random index variable to select random task form our task list, again this is data being collected and ran in our random class
                 int randomIndex = dice.nextInt(taskList.length);
                 System.out.println((i + 1) + ". " + taskList[randomIndex].trim());
             }
 
             // 5. Calculate Total Reward
-            // 6. to calculate our total reward we declare and initialize double variable and assign it the value of numbers that we want stored to run for our number of task listed, base pay, and applied bonus so that it prints out in numbers
+            // 6. to calculate our total reward we declare and initialize double variable and assign it the value of numbers that we want stored to run for our number of task's listed, base pay, and applied bonus so that it prints out in numbers
             // 7. where we have our condition set to if the number of task is greater than > 1, then the bonus of $15 is applied
             // 8. and for the instructor & our colleges we thought it would be productive to refresh using our calculator how we're able to declared doubles, but then assign whole numbers like 0, 15, and 25. it looks contradictory but remember how java can handle numeric conversion
             // 9. Java automatically converts doubles to integers when you assign them the value of whole numbers, java performs automatic widening conversion
             // 10. so after the int of 0; a double can store whole numbers between 3 and 100
-            double totalReward = numTasks * basePay;
-            double appliedBonus = 0;
+
 
             numTasks = 3;
             basePay = 25;
 
-            if (numTasks > 1) {
+            double baseReward = numTasks * basePay;
+            double appliedBonus = 0;
+
+            if (numTasks > 2) {
                 appliedBonus = 15;
-                totalReward += appliedBonus;
             }
 
+            double totalReward = baseReward + appliedBonus;
+
             // 8. Print Final Receipt shows  The “Print Final Receipt” section of your Java program is responsible for displaying a summary of the reward calculation
-            // 9. first we established \n parameter having our reward summary acting as the title for our output
+            // 9. first we established \n parameter
+            // having our reward summary acting as the title for our output
             // 10. formulated we have our specifiers to print our values after users selects task and then  the program finishes calculating the base reward and any bonus.
             // 11. if bonus applied is greater than zero which it is so the total earned +appliedBonus prints
             System.out.println("\n--- REWARD SUMMARY ---");
