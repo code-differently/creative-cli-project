@@ -10,7 +10,6 @@ The program was designed to include several main classes: FitnessApplication, Ex
 Work for this sprint was divided between both team members. Jayden implemented the Person class, FitnessApplication menu system and created the ExerciseType enumeration. Bryant implemented the Exercise, and Workout classes.
 
 ## Sprint 2 - The Build
-Sprint 2 — The Build
 
 During this sprint, we implemented the core structure of the fitness application. The program allows users to log workouts through a menu-based interface where they can create workout entries and associate exercises with them. Key classes such as FitnessApplication, Exercise, Person, and Workout were developed, along with the ExerciseType enumeration to categorize exercises.
 
