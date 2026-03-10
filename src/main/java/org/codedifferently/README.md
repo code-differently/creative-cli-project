@@ -104,7 +104,8 @@ incorporated them into our code.
 ## THE REFLECTION
 -Our program is a complete MVP, functionally accomplishing everything that we wanted to. The code and structure is pretty
 well organized, however we can incorporate more detailed comments. There are also leftover getter/setter methods that were 
-never actually used in the project, that are still hanging around. These could be removed or given a use in the program.
+never actually used in the project, that are still hanging around. These could be removed or given a use in the program. We also
+mentioned some additional features we could add in BandGigManager. 
 We used a lot of Encapsulation throughout the project, included in Gig, Venue, and BandGigManager
 classes which have private fields being accessed by getters and setters. There was polymorphism used, with multiple overloaded functions.
 Abstraction was used in a conceptual sense with class design, but not implemented with abstract classes or interfaces.
