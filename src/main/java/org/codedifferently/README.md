@@ -89,7 +89,7 @@ also able to incorporate features like band lineup adjustment. One thing that we
 pertaining to the bandGigManager and Gig is using actual date/times for tracking gigs. We could have
 displayed these to the user in chronological order (instead of order of first insertion), but this is 
 something we could accomplish with more time. Additionally, we could've incorporated weighted setlists, which is something 
-we wanted to try to tackle during planning. 
+we wanted to try to tackle during planning. We also might consider using a set for setlist (since it can't contain duplicates).
 
 -UI
 Completely implemented, handles all user input and runs main program loop. We ran into issues with menu complexity,
